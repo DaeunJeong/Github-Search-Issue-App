@@ -21,6 +21,12 @@ class IssueListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
+    }
+}
+
+extension IssueListVC {
+    func bindViewModel() {
         let input = IssueListViewModel.Input()
         let output = issueListViewModel.transform(input: input)
         
@@ -41,8 +47,8 @@ class IssueListVC: UIViewController {
             cellOutput.htmlPath.asObservable().subscribe { htmlPath in
                 guard let url = URL(string: htmlPath.element ?? "") else { return }
                 UIApplication.shared.open(url)
-            }.disposed(by: strongSelf.disposeBag)
-        }.disposed(by: disposeBag)
+                }.disposed(by: strongSelf.disposeBag)
+            }.disposed(by: disposeBag)
         
         //request의 result에 따른 처리
         output.result.asObservable().subscribe { [weak self] result in
@@ -54,8 +60,7 @@ class IssueListVC: UIViewController {
                 strongSelf.showAlert(self: strongSelf, title: "실패", message: "", actionTitle: "확인")
                 }
             }
-        }.disposed(by: disposeBag)
-        
+            }.disposed(by: disposeBag)
     }
 }
 
