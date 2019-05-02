@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    //alert 띄워주는 함수
     func showAlert(self vc: UIViewController, title: String, message: String, handler: ((UIAlertAction) -> Void)? = nil, actionTitle: String? = nil) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)

@@ -25,6 +25,7 @@ class IssueListViewModel: ViewModelType {
         let issues: Driver<[IssueModel]>
     }
     
+    //request의 결과를 result와 issues모델로 변환
     func transform(input: Input) -> Output {
         
         let request = self.api.searchIssues()
@@ -54,6 +55,7 @@ class IssueListViewModel: ViewModelType {
         let htmlPath: Driver<String>
     }
     
+    //click에 따라 htmlPath로 변환
     func cellTransform(input: CellInput) -> CellOutput {
         let htmlPath = input.clickMove.asObservable().withLatestFrom(input.clickIndex).flatMapLatest { [weak self] index -> Observable<String> in
             
