@@ -12,6 +12,7 @@ import RxCocoa
 
 class IssueListVC: UIViewController {
     @IBOutlet weak var issueTableView: UITableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     var issueListViewModel = IssueListViewModel()
     
@@ -39,6 +40,17 @@ class IssueListVC: UIViewController {
                 guard let url = URL(string: htmlPath.element ?? "") else { return }
                 UIApplication.shared.open(url)
             }.disposed(by: strongSelf.disposeBag)
+        }.disposed(by: disposeBag)
+        
+        output.result.asObservable().subscribe { [weak self] result in
+            guard let strongSelf = self else {return}
+            if let result = result.element {
+                switch result {
+                case true: strongSelf.indicatorView.stopAnimating()
+                default: strongSelf.indicatorView.stopAnimating()
+                strongSelf.showAlert(self: strongSelf, title: "실패", message: "", actionTitle: "확인")
+                }
+            }
         }.disposed(by: disposeBag)
         
     }

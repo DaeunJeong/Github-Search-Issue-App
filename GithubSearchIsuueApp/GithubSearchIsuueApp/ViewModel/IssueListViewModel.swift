@@ -32,7 +32,6 @@ class IssueListViewModel: ViewModelType {
         let result = request.map { request -> Bool in
             
             let (result, _) = request
-            
             return result
             }.asDriver(onErrorJustReturn: false)
         

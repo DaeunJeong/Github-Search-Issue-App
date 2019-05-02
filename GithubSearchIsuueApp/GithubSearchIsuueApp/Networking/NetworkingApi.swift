@@ -27,7 +27,7 @@ final class NetworkingApi: NetworkingService {
             default: result = false
             }
             
-            guard var issueModel = try? JSONDecoder().decode([IssueModel].self, from: data) else {
+            guard let issueModel = try? JSONDecoder().decode([IssueModel].self, from: data) else {
                 return (false,[])
             }
             return (result,issueModel)
