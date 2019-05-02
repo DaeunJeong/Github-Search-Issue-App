@@ -18,7 +18,7 @@ protocol NetworkingService {
 
 final class NetworkingApi: NetworkingService {
     func searchIssues() -> Observable<(Bool,[IssueModel])> {
-        return RxAlamofire.requestData(.get, "https://api.github.com/repos/nodejs/node/issues", parameters: ["state":"open","sort":"comments"], encoding: URLEncoding.queryString, headers: ["Content-Type" : "application/json"]).map { (response, data) -> (Bool,[IssueModel]) in
+        return RxAlamofire.requestData(.get, "https://api.github.com/repos/nodejs/node/issues", parameters: ["state":"open","sort":"comments","per_page":10], encoding: URLEncoding.queryString, headers: ["Content-Type" : "application/json"]).map { (response, data) -> (Bool,[IssueModel]) in
             
             var result = false
             
@@ -30,7 +30,6 @@ final class NetworkingApi: NetworkingService {
             guard var issueModel = try? JSONDecoder().decode([IssueModel].self, from: data) else {
                 return (false,[])
             }
-            issueModel.removeSubrange(11..<issueModel.count)
             return (result,issueModel)
         }
     }
