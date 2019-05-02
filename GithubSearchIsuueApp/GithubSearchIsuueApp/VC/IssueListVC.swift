@@ -23,14 +23,15 @@ class IssueListVC: UIViewController {
         let input = IssueListViewModel.Input()
         let output = issueListViewModel.transform(input: input)
         
-        output.issues.drive(issueTableView.rx.items(cellIdentifier: "issueCell", cellType: IssueCell.self)) { [weak self] _, issue, cell in
+        output.issues.drive(issueTableView.rx.items(cellIdentifier: "issueCell", cellType: IssueCell.self)) { [weak self] row, issue, cell in
             guard let strongSelf = self else {return}
             cell.titleLabel.text = issue.title
-            cell.dateLabel.text = issue.date
+            let index = issue.date.index(issue.date.startIndex, offsetBy: 10)
+            cell.dateLabel.text = issue.date.substring(to: index)
             cell.userLabel.text = issue.user.userName
             cell.commentsNumLabel.text = "\(issue.commentsNum)"
             
-            let cellInput = IssueListViewModel.CellInput(clickMove: cell.moveIssueDetail.rx.tap.asSignal(), clickIndex: strongSelf.issueTableView.rx.itemSelected.asDriver())
+            let cellInput = IssueListViewModel.CellInput(clickMove: cell.moveIssueDetail.rx.tap.asSignal(), clickIndex: Observable.of(row))
             
             let output = strongSelf.issueListViewModel.cellTransform(input: cellInput)
             

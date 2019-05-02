@@ -48,7 +48,7 @@ class IssueListViewModel: ViewModelType {
     
     struct CellInput {
         let clickMove: Signal<Void>
-        let clickIndex: Driver<IndexPath>
+        let clickIndex: Observable<Int>
     }
     
     struct CellOutput {
@@ -58,7 +58,7 @@ class IssueListViewModel: ViewModelType {
     func cellTransform(input: CellInput) -> CellOutput {
         let htmlPath = input.clickMove.asObservable().withLatestFrom(input.clickIndex).flatMapLatest { [weak self] index -> Observable<String> in
             
-            return Observable.of(self?.issues.value[index.row].htmlUrl ?? "")
+            return Observable.of(self?.issues.value[index].htmlUrl ?? "")
         }.asDriver(onErrorJustReturn: "")
         
         return CellOutput(htmlPath: htmlPath)
