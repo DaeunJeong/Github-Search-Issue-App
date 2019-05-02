@@ -7,3 +7,23 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
+
+//class IssueDetailViewModel: ViewModelType {
+//
+//    let disposeBag = DisposeBag()
+//    let
+//
+//    struct Input {
+//        let clickMove: Signal<Void>
+//    }
+//
+//    struct Output {
+//        let moveHtmlUrl: Driver<String>
+//    }
+//
+//    func transform(input: Input) -> Output {
+//
+//    }
+//}

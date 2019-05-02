@@ -1,5 +1,5 @@
 //
-//  Issue.swift
+//  IssueCellViewModel.swift
 //  GithubSearchIsuueApp
 //
 //  Created by daeun on 02/05/2019.
