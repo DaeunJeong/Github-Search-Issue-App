@@ -27,9 +27,10 @@ final class NetworkingApi: NetworkingService {
             default: result = false
             }
             
-            guard let issueModel = try? JSONDecoder().decode([IssueModel].self, from: data) else {
+            guard var issueModel = try? JSONDecoder().decode([IssueModel].self, from: data) else {
                 return (false,[])
             }
+            issueModel.removeSubrange(11..<issueModel.count)
             return (result,issueModel)
         }
     }

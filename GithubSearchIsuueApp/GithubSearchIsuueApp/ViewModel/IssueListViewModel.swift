@@ -41,7 +41,7 @@ class IssueListViewModel: ViewModelType {
             self?.issues.value = issueModels
             
             return issueModels
-            }.take(10).asDriver(onErrorJustReturn: [])
+            }.asDriver(onErrorJustReturn: [])
         
         return Output(result: result, issues: issueModels)
     }
